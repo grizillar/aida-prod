@@ -1,0 +1,185 @@
+@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@200;300;400;500&display=swap");
+
+.form-check-input:checked {
+	background-color: var(--primary-color);
+	border-color: var(--primary-color);
+}
+
+#filter-button:hover {
+	color: var(--primary-color);
+}
+
+#queryEditor {
+	margin: 15px;
+}
+
+.row {
+	margin-top: 1rem;
+}
+
+.col {
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+th,
+td {
+	text-align: right;
+	vertical-align: middle;
+}
+
+.cell-highlight {
+	background-color: var(--primary-color-light);
+}
+
+.query-date-input {
+	width: 100%;
+}
+
+.current-dashboard {
+	color: var(--primary-color);
+}
+
+.query-submit-buttons {
+	margin-top: 15px;
+}
+
+.query-submit-buttons button {
+	margin-left: 5px;
+}
+
+.tab-nav-link {
+	color: black;
+}
+
+.nav :hover {
+	color: var(--primary-color);
+}
+
+.tab-content {
+	margin: 5px;
+}
+
+.form-select {
+	width: auto;
+}
+
+.sign {
+	margin-left: 15px;
+	margin-right: 15px;
+	flex-shrink: 1;
+}
+
+#count-control {
+	margin-top: 10px;
+}
+
+.counter {
+	margin-left: 5px;
+	margin-right: 5px;
+	margin-bottom: 0px;
+	align-items: center;
+}
+
+.count-btn {
+	font-size: 21px;
+	color: black;
+	background-color: transparent;
+	border-color: transparent;
+}
+
+.count-btn:hover {
+	color: var(--primary-color);
+	background-color: transparent;
+	border-color: transparent;
+}
+
+.count-btn:active {
+	color: var(--primary-color) !important;
+	background-color: transparent !important;
+	border-color: transparent !important;
+}
+
+.section {
+	margin-top: 20px;
+	padding: 10px;
+	/* border-radius: 5px;
+	border: 2px solid;
+	color: var(--primary-color-light); */
+}
+
+.card-body > .graph-title {
+	color: black;
+	text-align: center;
+}
+
+.padding-little {
+	padding: 10px;
+}
+
+#chart-test-1 .card {
+	margin-bottom: 5px;
+}
+
+.hidden {
+	display: none !important;
+}
+
+.invisibility {
+	visibility: hidden !important;
+}
+
+.facebook_color {
+	color: #4267b2;
+}
+
+.instagram_color {
+	color: #d62976;
+}
+
+.line_color {
+	color: #06c755;
+}
+
+.google_color {
+	color: #db4437;
+}
+
+.icon {
+	font-size: 1em;
+}
+
+.positive-percentage {
+	color: rgb(143, 196, 63);
+}
+
+.negative-percentage {
+	color: rgb(193, 54, 54);
+}
+
+.gray-out {
+	color: rgb(181, 179, 179);
+}
+
+/* .total-row {
+	background-color: rgb(223, 155, 221);
+	color: rgb(0, 0, 0);
+} */
+
+.minor-query {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+}
+
+#minor-query-g-l1 {
+	border-color: transparent;
+}
+
+.dropdown-item:active {
+	background-color: var(--primary-color);
+}
+
+tfoot {
+	border-top: 2px solid black;
+}

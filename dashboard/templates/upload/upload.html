@@ -1,0 +1,160 @@
+{% extends 'layout/base.html' %} {% block title %} Upload {% endblock %} {% block stylesheets %}
+<link rel="stylesheet" href="/static/upload/upload.css" />
+{%endblock stylesheets %} {% block javascript %}
+<script>
+	var campaignNameJSON = "{{ campaign_nameJSON}}";
+</script>
+<script src="/static/upload/upload.js"></script>
+{% endblock javascript%} {% block content %}
+<div class="container">
+	<div class="card shadow">
+		<div class="card-body">
+			<!-- <h1>อัปโหลดข้อมูล</h1> -->
+			<form id="upload-form" method="post" enctype="multipart/form-data">
+				{% csrf_token %}
+				<div>
+					<div class="container d-flex">
+						<h2>เลือกแพลตฟอร์ม</h2>
+					</div>
+					<div class="container d-flex">
+						<div class="row g-5">
+							<div class="col">
+								<label for="facebook" class="option-item shadow">
+									<input onclick="typeCheck()" type="radio" id="facebook" name="type" value="FB" class="checkbox" />
+									<div class="option-inner facebook d-flex align-items-center justify-content-center">
+										<!-- <div class="tickmark"></div> -->
+										<div style="display: block">
+											<i class="icon bi bi-facebook d-flex justify-content-center"></i>
+											<p class="d-flex justify-content-center icon-label">Facebook<br />/Instagram</p>
+										</div>
+									</div>
+								</label>
+							</div>
+							<div class="col">
+								<label for="linepost" class="option-item shadow">
+									<input onclick="typeCheck()" type="radio" id="linepost" name="type" value="LP" class="checkbox" />
+									<div class="option-inner linepost d-flex align-items-center justify-content-center">
+										<!-- <div class="tickmark"></div> -->
+										<div style="display: block">
+											<i class="icon bi bi-line d-flex justify-content-center"></i>
+											<p class="d-flex justify-content-center icon-label">Line<br />(Post)</p>
+										</div>
+									</div>
+								</label>
+							</div>
+							<div class="col">
+								<label for="linemessage" class="option-item shadow">
+									<input onclick="typeCheck()" type="radio" id="linemessage" name="type" value="LM" class="checkbox" />
+									<div class="option-inner linemessage d-flex align-items-center justify-content-center">
+										<div style="display: block">
+											<i class="icon bi bi-line d-flex justify-content-center"></i>
+											<p class="d-flex justify-content-center icon-label">Line<br />(Message)</p>
+										</div>
+									</div>
+								</label>
+							</div>
+							<div class="col">
+								<label for="googlecampaign" class="option-item shadow">
+									<input onclick="typeCheck()" type="radio" id="googlecampaign" name="type" value="GC" class="checkbox" />
+									<div class="option-inner googlecampaign d-flex align-items-center justify-content-center">
+										<div style="display: block">
+											<i class="icon bi bi-google d-flex justify-content-center"></i>
+											<p class="d-flex justify-content-center icon-label">Google<br />(Campaign)</p>
+										</div>
+									</div>
+								</label>
+							</div>
+							<div class="col">
+								<label for="googlesitetraffic" class="option-item shadow">
+									<input onclick="typeCheck()" type="radio" id="googlesitetraffic" name="type" value="GS" class="checkbox" />
+									<div class="option-inner googlesitetraffic d-flex align-items-center justify-content-center">
+										<div style="display: block">
+											<i class="icon bi bi-google d-flex justify-content-center"></i>
+											<p class="d-flex justify-content-center icon-label">Google<br />(Site Traffic)</p>
+										</div>
+									</div>
+								</label>
+							</div>
+						</div>
+					</div>
+					<!-- <div id="W1" class="alert alert-warning sign hidden" role="alert">
+						<i class="bi bi-exclamation-triangle-fill"></i> <b>ข้อควรระวัง:</b> ไม่พบข้อมูลวันที่ในข้อมูลแคมเปญจากแพลตฟอร์ม Google โปรดเพิ่มวันที่ในส่วน "แก้ไขข้อมูลเพิ่มเติม"
+					</div> -->
+				</div>
+				<hr />
+				<div>
+					<div class="container d-flex">
+						<h2>เลือกไฟล์</h2>
+					</div>
+					<div id="drop-box" class="container d-flex justify-content-center align-items-center">
+						<div style="display: block">
+							<div class="d-flex justify-content-center"><i id="upload-icon" class="bi bi-file-earmark-arrow-down-fill"></i></div>
+							<div class="p d-flex justify-content-center">ลากและวางไฟล์เพื่ออัปโหลด หรือ</div>
+							<div class="d-flex justify-content-center"><input onchange="uploadHandle()" class="form-control" type="file" name="csvfile" id="fileinput" /></div>
+							<div class="p d-flex justify-content-center" style="font-size: smaller">(เลือกได้เพียง 1 ไฟล์เท่านั้น)</div>
+						</div>
+					</div>
+				</div>
+				<div id="config" class="hidden">
+					<div class="container d-flex">
+						<h4>เพิ่มข้อมูล</h4>
+					</div>
+					<div class="container d-inline-flex align-items-center">
+						<p style="margin-bottom: 0">วันที่</p>
+						<input id="date" name="date" class="form-control" type="date" />
+						<a class="info-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="วันที่จะถูกเพิ่มในทุกแคมเปญของไฟล์นี้"><i class="bi bi-info-circle-fill"></i></a>
+					</div>
+					<hr />
+				</div>
+				<div id="E1" class="alert alert-danger sign hidden" role="alert"><i class="bi bi-exclamation-triangle-fill"></i> <b>ข้อผิดพลาด:</b> สามารถอัปโหลดได้ 1 ไฟล์เท่านั้น</div>
+				<div id="E2" class="alert alert-danger sign hidden" role="alert"><i class="bi bi-exclamation-triangle-fill"></i> <b>ข้อผิดพลาด:</b> รูปแบบไฟล์ไม่ตรงกับแพลตฟอร์มที่เลือก</div>
+				<div id="E3" class="alert alert-danger sign hidden" role="alert"><i class="bi bi-exclamation-triangle-fill"></i> <b>ข้อผิดพลาด:</b> กรุณาเลือกแพลตฟอร์ม</div>
+				<div id="E4" class="alert alert-danger sign hidden" role="alert"><i class="bi bi-exclamation-triangle-fill"></i> <b>ข้อผิดพลาด:</b> กรุณากรอกวันที่</div>
+				<div id="E5" class="alert alert-danger sign hidden" role="alert"><i class="bi bi-exclamation-triangle-fill"></i> <b>ข้อผิดพลาด:</b> กรุณาเลือกไฟล์</div>
+				<div id="W1" class="alert alert-warning sign hidden alert-dismissible fade show" role="alert">
+					<i class="bi bi-exclamation-triangle-fill"></i> <b>คำเตือน:</b> พบชื่อแคมเปญในไฟล์ซํ้ากับในฐานข้อมูลจากแพลตฟอร์มเดียวกัน
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+				<div class="d-flex justify-content-end upload-button-group">
+					<button type="button" class="btn btn-lg btn-danger override" data-bs-toggle="modal" data-bs-target="#clearConfirmModal">ล้างข้อมูล</button>
+					<button onclick="submitHandle()" type="button" class="btn btn-lg btn-success override">อัปโหลด</button>
+					<div class="modal fade" id="clearConfirmModal" tabindex="-1" aria-labelledby="clearConfirmModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="clearConfirmModalLabel">ยืนยันการล้างข้อมูล</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								</div>
+								<div class="modal-body">
+									<div class="form-check d-flex justify-content-between">
+										<div>
+											<input class="form-check-input clear-checkbox" type="checkbox" value="" id="clear-campaign-checkbox" checked />
+											<label class="form-check-label" for="flexCheckDefault"> ข้อมูลแคมเปญ </label>
+										</div>
+										<div>
+											<p><b>{{ campaign_amount }}</b> แถว</p>
+										</div>
+									</div>
+									<div class="form-check d-flex justify-content-between">
+										<div>
+											<input class="form-check-input clear-checkbox" type="checkbox" value="" id="clear-sitetraffic-checkbox" checked />
+											<label class="form-check-label" for="flexCheckDefault"> ข้อมูลการเข้าออกเว็บไซต์ </label>
+										</div>
+										<div>
+											<p><b>{{ sitetraffic_amount }}</b> แถว</p>
+										</div>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+									<button type="button" onclick="clearHandle()" class="btn btn-danger">ยืนยัน</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}

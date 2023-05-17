@@ -1,0 +1,39 @@
+{% extends 'layout/base.html' %} {% block title %} Success {% endblock %} {% block stylesheets %}
+<link rel="stylesheet" href="/static/upload/upload.css" />
+{%endblock stylesheets %} {% block javascript %}
+<script>
+	function back() {
+		window.location.href = "/upload";
+	}
+</script>
+{% endblock javascript%} {% block content %}
+<div class="container">
+	<div class="card shadow">
+		<div class="card-body">
+			<div class="alert alert-success sign" role="alert">
+				<h4 class="alert-heading">อัปโหลดข้อมูลสำเร็จ!</h4>
+				<div class="d-flex justify-content-between">
+					<div>จำนวนข้อมูลบนระบบเดิม:</div>
+					<div><b>{{ origin }}</b> แถว</div>
+				</div>
+				<div class="d-flex justify-content-between">
+					<div>จำนวนข้อมูลที่อัปโหลด:</div>
+					<div><b>{{ amount }}</b> แถว</div>
+				</div>
+				<div class="d-flex justify-content-between">
+					<div>จำนวนข้อมูลที่ถูกตัดออกไป:</div>
+					<div><b style="color: rgb(213, 56, 87)">-{{ bad_amount }}</b> แถว</div>
+				</div>
+				<hr />
+				<div class="d-flex justify-content-between">
+					<div>จำนวนข้อมูลบนระบบในปัจจุบัน:</div>
+					<div><b>{{ database_amount }}</b> แถว</div>
+				</div>
+			</div>
+			<div class="d-flex justify-content-end">
+				<button type="button" onclick="back()" class="btn btn-secondary">อัปโหลดเพิ่ม</button>
+			</div>
+		</div>
+	</div>
+</div>
+{%endblock%}
